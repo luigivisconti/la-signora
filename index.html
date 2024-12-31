@@ -3,6 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Glitch Effects</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .glitch {
+            position: absolute;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: yellow;
+            text-shadow: 2px 2px blue;
+            animation: move-glitch linear infinite;
+        }
+
+        @keyframes move-glitch {
+            0% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(-10px, 10px);
+            }
+            50% {
+                transform: translate(10px, -10px);
+            }
+            75% {
+                transform: translate(-10px, -10px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .floating-media {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            animation: float-media linear infinite;
+        }
+
+        @keyframes float-media {
+            0% {
+                top: 10%;
+                left: 10%;
+            }
+            25% {
+                top: 20%;
+                left: 70%;
+            }
+            50% {
+                top: 50%;
+                left: 40%;
+            }
+            75% {
+                top: 80%;
+                left: 10%;
+            }
+            100% {
+                top: 10%;
+                left: 10%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="warnings-container"></div>
+    <div id="media-container"></div>
+
+    <script>
+        const warningsContainer = document.getElementById('warnings-container');
+        const mediaContainer = document.getElementById('media-container');
+
+        const glitchMessages = [
+            "La Signora ti osserva.",
+            "Bentornato.",
+            "Il caos regna.",
+            "Nessuna via d'uscita.",
+            "Ascolta il silenzio.",
+            "Tutto era già scritto.",
+            "Rallenta.",
+            "Chi sei davvero?",
+            "Questo è solo l'inizio.",
+            "L'AI è ovunque."
+        ];
+
+        function createGlitch() {
+            const glitch = document.createElement('div');
+            glitch.className = 'glitch';
+            glitch.innerText = glitchMessages[Math.floor(Math.random() * glitchMessages.length)];
+            glitch.style.top = `${Math.random() * 80}vh`;
+            glitch.style.left = `${Math.random() * 80}vw`;
+            glitch.style.animationDuration = `${5 + Math.random() * 5}s`;
+            warningsContainer.appendChild(glitch);
+
+            setTimeout(() => {
+                warningsContainer.removeChild(glitch);
+            }, 10000);
+        }
+
+        function addFloatingMedia() {
+            const media = document.createElement('img');
+            media.src = 'floating-image.gif'; // Replace with your desired GIF or image
+            media.className = 'floating-media';
+            media.style.top = `${Math.random() * 80}vh`;
+            media.style.left = `${Math.random() * 80}vw`;
+            media.style.animationDuration = `${10 + Math.random() * 10}s`;
+            mediaContainer.appendChild(media);
+
+            setTimeout(() => {
+                mediaContainer.removeChild(media);
+            }, 15000);
+        }
+
+        // Generate glitch messages at random intervals
+        setInterval(createGlitch, 1500);
+
+        // Add floating media every 20 seconds
+        setInterval(addFloatingMedia, 20000);
+    </script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Explore the music of the enigmatic AI artist 'La Signora'. Listen to exclusive tracks, remixes, and compositions created entirely with AI.">
     <title>La Signora - AI Music Experience</title>
     <style>
@@ -13,6 +146,78 @@
             background-size: cover;
             color: #eee;
             text-align: center;
+        }.glitch {
+            position: absolute;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: yellow;
+            text-shadow: 2px 2px blue;
+            animation: move-glitch linear infinite;
+        }
+
+        @keyframes move-glitch {
+            0% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(-10px, 10px);
+            }
+            50% {
+                transform: translate(10px, -10px);
+            }
+            75% {
+                transform: translate(-10px, -10px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .floating-media {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            animation: float-media linear infinite;
+        }
+
+        @keyframes float-media {
+            0% {
+                top: 10%;
+                left: 10%;
+            }
+            25% {
+                top: 20%;
+                left: 70%;
+            }
+            50% {
+                top: 50%;
+                left: 40%;
+            }
+            75% {
+                top: 80%;
+                left: 10%;
+            }
+            100% {
+                top: 10%;
+                left: 10%;
+            }
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+        }
+
+        .popup.show {
+            display: block;
         }
 
         header {
@@ -91,54 +296,7 @@
             text-decoration: underline;
         }
 
-        @keyframes glitch {
-            0% { transform: translate(0, 0); }
-            25% { transform: translate(-5px, 5px); }
-            50% { transform: translate(5px, -5px); }
-            75% { transform: translate(-5px, -5px); }
-            100% { transform: translate(0, 0); }
-        }
-
-        @keyframes move {
-            0% { top: 10%; left: 10%; }
-            25% { top: 20%; left: 70%; }
-            50% { top: 50%; left: 40%; }
-            75% { top: 80%; left: 10%; }
-            100% { top: 10%; left: 10%; }
-        }
-
-        .glitch {
-            animation: glitch 0.2s infinite, move 8s infinite;
-            position: absolute;
-            color: yellow;
-            text-shadow: 2px 2px blue;
-        }
-
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-            display: none;
-            z-index: 1000;
-        }
-
-        .popup.show {
-            display: block;
-        }
-
-        .floating-media {
-            position: fixed;
-            width: 100px;
-            height: 100px;
-            animation: move 15s infinite;
-            z-index: 500;
-        }
+        
     </style>
 </head>
 <body>
@@ -213,10 +371,13 @@
 
     <audio id="alarm-sound" src="alarm.wav" autoplay></audio>
 
-    <script>
-        const popupMessages = [
-            " ti osserva.",
+        <script>
+        const warningsContainer = document.getElementById('warnings-container');
+        const mediaContainer = document.getElementById('media-container');
+
+        const glitchMessages = [
             "Bentornato nel dominio dell'AI.",
+            " ti osserva.",
             "l'inizio.",
             "Cosa stai cercando davvero?",
             "Il caos è ordine.",
@@ -226,23 +387,6 @@
             "Tu sei parte di questo.",
             " ha sempre saputo."
         ];
-
-        const warningsContainer = document.getElementById('warnings-container');
-
-        // Glitch Text Scaling Logic
-        let glitchCount = 1;
-        function addGlitches() {
-            warningsContainer.innerHTML = '';
-            for (let i = 0; i < glitchCount; i++) {
-                const warning = document.createElement('div');
-                warning.className = 'glitch';
-                warning.innerText = popupMessages[Math.floor(Math.random() * popupMessages.length)];
-                warningsContainer.appendChild(warning);
-            }
-            glitchCount = Math.min(glitchCount + 1, 5); // Maximum of 5 glitches
-        }
-
-        setInterval(addGlitches, 60000); // Add more glitches every minute
 
         // Pop-up Message Logic
         function showPopup() {
@@ -257,22 +401,41 @@
         showPopup();
         setInterval(showPopup, 20000); // Show popup every 20 seconds
 
-        // Floating Media Logic
-        function addFloatingMedia() {
-            const media = document.createElement('img');
-            media.src = 'floating-image.gif'; // Replace with your desired image or gif
-            media.className = 'floating-media';
-            document.body.appendChild(media);
+            
+        function createGlitch() {
+            const glitch = document.createElement('div');
+            glitch.className = 'glitch';
+            glitch.innerText = glitchMessages[Math.floor(Math.random() * glitchMessages.length)];
+            glitch.style.top = `${Math.random() * 80}vh`;
+            glitch.style.left = `${Math.random() * 80}vw`;
+            glitch.style.animationDuration = `${5 + Math.random() * 5}s`;
+            warningsContainer.appendChild(glitch);
 
             setTimeout(() => {
-                document.body.removeChild(media);
-            }, 15000); // Remove media after 15 seconds
+                warningsContainer.removeChild(glitch);
+            }, 10000);
         }
 
-        setInterval(addFloatingMedia, 90000); // Add floating media every 1.5 minutes
+        function addFloatingMedia() {
+            const media = document.createElement('img');
+            media.src = 'floating-image.gif'; // Replace with your desired GIF or image
+            media.className = 'floating-media';
+            media.style.top = `${Math.random() * 80}vh`;
+            media.style.left = `${Math.random() * 80}vw`;
+            media.style.animationDuration = `${10 + Math.random() * 10}s`;
+            mediaContainer.appendChild(media);
 
-        // Initial Setup
-        addGlitches();
+            setTimeout(() => {
+                mediaContainer.removeChild(media);
+            }, 15000);
+        }
+
+        // Generate glitch messages at random intervals
+        setInterval(createGlitch, 1500);
+        // Add floating media every 20 seconds
+        setInterval(addFloatingMedia, 20000);
+            
     </script>
+    
 </body>
 </html>
