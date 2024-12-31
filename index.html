@@ -285,7 +285,7 @@
 
         function addFloatingMedia() {
             const media = document.createElement('img');
-            media.src = 'floating-image.gif'; // Replace with your desired GIF or image
+            media.src = `floating-image-${imageIndex}.gif`; // Dynamically set image source
             media.className = 'floating-media';
             media.style.top = `${Math.random() * 80}vh`;
             media.style.left = `${Math.random() * 80}vw`;
@@ -294,7 +294,9 @@
 
             setTimeout(() => {
                 mediaContainer.removeChild(media);
-            }, 15000);
+            }, 15000); // Remove media after 15 seconds
+
+            imageIndex = (imageIndex % 5) + 1; // Cycle through images (1 to 5)
         }
 
         // Generate glitch messages at random intervals
