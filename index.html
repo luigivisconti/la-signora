@@ -293,31 +293,65 @@
         const popup = document.getElementById('popup');
         const alarmSound = document.getElementById('alarm-sound');
 
-        const glitchMessages = [
-            "Bentornato nel dominio dell'AI.",
-            "La Signora ti osserva.",
-            "Il caos è ordine.",
-            "Nessuna via d'uscita.",
-            "Tutto è un'illusione.",
-            "Rallenta e ascolta.",
-            "Tu sei parte di questo.",
-            "Tutto era già scritto.",
-            "Il glitch è solo l'inizio.",
-            "L'AI è ovunque."
-        ];
+ const glitchMessages = [
+    "Bentornato nel dominio dell'AI.",
+    "La Signora ti osserva.",
+    "Il caos è ordine.",
+    "Nessuna via d'uscita.",
+    "Tutto è un'illusione.",
+    "Rallenta e ascolta.",
+    "Tu sei parte di questo.",
+    "Tutto era già scritto.",
+    "Il glitch è solo l'inizio.",
+    "L'AI è ovunque.",
+    "欢迎来到AI领域。",
+    "人工智能无处不在。",
+    "AIの領域へようこそ。",
+    "AIがどこにでもある。"," + 
+    ""مرحبًا بك في مجال الذكاء الاصطناعي.",
+    "الذكاء الاصطناعي في كل مكان.",
+    "Willkommen im AI-Bereich.",
+    "Die KI ist überall.",
+    "Bienvenido al dominio de la IA.",
+    "La IA está en todas partes.",
+    "Dobrodošli u domen AI.",
+    "AI je svugdje.",
+    "Добро пожаловать в область ИИ.",
+    "ИИ повсюду.",
+    "Bienvenue dans le domaine de l'IA.",
+    "L'IA est partout.",
+    "Benvenuti nel regno dell'IA.",
+    "L'IA è ovunque."];
 
         const translatedMessages = [
-            "Welcome to the AI domain.",
-            "La Señora te observa.",
-            "Le chaos est un ordre.",
-            "Nessuna via di fuga.",
-            "Todo es una ilusión.",
-            "Ralentissez et écoutez.",
-            "Você faz parte disso.",
-            "Todo estaba escrito.",
-            "El glitch es solo el comienzo.",
-            "L'IA est partout."
-        ];
+    "Welcome to the AI domain.",
+    "The Lady is watching you.",
+    "Chaos is order.",
+    "There is no way out.",
+    "Everything is an illusion.",
+    "Slow down and listen.",
+    "You are part of this.",
+    "Everything was already written.",
+    "The glitch is just the beginning.",
+    "The AI is everywhere.",
+    "欢迎来到AI领域。",
+    "人工智能无处不在。",
+    "AIの領域へようこそ。",
+    "AIがどこにでもある。",
+    "مرحبًا بك في مجال الذكاء الاصطناعي.",
+    "الذكاء الاصطناعي في كل مكان.",
+    "Willkommen im AI-Bereich.",
+    "Die KI ist überall.",
+    "Bienvenido al dominio de la IA.",
+    "La IA está en todas partes.",
+    "Dobrodošli u domen AI.",
+    "AI je svugdje.",
+    "Добро пожаловать в область ИИ.",
+    "ИИ повсюду.",
+    "Bienvenue dans le domaine de l'IA.",
+    "L'IA est partout.",
+    "Benvenuti nel regno dell'IA.",
+    "L'IA è ovunque."]
 
         function showPopup() {
             const popupText = translatedMessages[Math.floor(Math.random() * translatedMessages.length)];
