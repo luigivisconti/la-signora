@@ -21,7 +21,7 @@
             font-weight: bold;
             color: yellow;
             text-shadow: 2px 2px blue;
-            animation: move-glitch linear infinite;
+            animation: move-glitch 1s infinite;
         }
 
         @keyframes move-glitch {
@@ -29,13 +29,13 @@
                 transform: translate(0, 0);
             }
             25% {
-                transform: translate(-10px, 10px);
+                transform: translate(-20px, 20px);
             }
             50% {
-                transform: translate(10px, -10px);
+                transform: translate(20px, -20px);
             }
             75% {
-                transform: translate(-10px, -10px);
+                transform: translate(-20px, -20px);
             }
             100% {
                 transform: translate(0, 0);
@@ -240,20 +240,28 @@
 
     <script>
         const warningsContainer = document.getElementById('warnings-container');
-        const mediaContainer = document.getElementById('media-container');
+        const popup = document.getElementById('popup');
+        const alarmSound = document.getElementById('alarm-sound');
 
         const glitchMessages = [
             "Bentornato nel dominio dell'AI.",
-            " ti osserva.",
-            "l'inizio.",
-            "Cosa stai cercando davvero?",
+            "La Signora ti osserva.",
             "Il caos è ordine.",
             "Nessuna via d'uscita.",
             "Tutto è un'illusione.",
             "Rallenta e ascolta.",
             "Tu sei parte di questo.",
-            " ha sempre saputo."
+            "Tutto era già scritto.",
+            "Il glitch è solo l'inizio.",
+            "L'AI è ovunque."
         ];
+
+        function showPopup() {
+            const popupText = glitchMessages[Math.floor(Math.random() * glitchMessages.length)];
+            popup.querySelector('p').innerText = popupText;
+            popup.classList.add('show');
+            setTimeout(() => popup.classList.remove('show'), 5000);
+        }
 
         function createGlitch() {
             const glitch = document.createElement('div');
@@ -269,28 +277,31 @@
             }, 10000);
         }
 
-        let imageIndex = 1; // Start with the first image
+        let imageIndex = 1;
 
         function addFloatingMedia() {
             const media = document.createElement('img');
-            media.src = `floating-image-${imageIndex}.gif`; // Dynamically set image source
+            media.src = `floating-image-${imageIndex}.gif`;
             media.className = 'floating-media';
             media.style.top = `${Math.random() * 80}vh`;
             media.style.left = `${Math.random() * 80}vw`;
-            media.style.animationDuration = `${10 + Math.random() * 10}s`;
-            mediaContainer.appendChild(media);
+            document.body.appendChild(media);
 
             setTimeout(() => {
-                mediaContainer.removeChild(media);
-            }, 15000); // Remove media after 15 seconds
+                document.body.removeChild(media);
+            }, 15000);
 
-            imageIndex = (imageIndex % 5) + 1; // Cycle through images (1 to 5)
+            imageIndex = (imageIndex % 5) + 1;
         }
 
-        // Generate glitch messages at random intervals
+        document.addEventListener('DOMContentLoaded', () => {
+            alarmSound.play();
+            showPopup();
+        });
+
         setInterval(createGlitch, 1500);
-        // Add floating media every 20 seconds
         setInterval(addFloatingMedia, 20000);
+        setInterval(showPopup, 20000);
     </script>
 </body>
 </html>
