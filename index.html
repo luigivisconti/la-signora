@@ -9,7 +9,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: url('backg.jpeg') no-repeat center center fixed;
+            background: url('background.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #eee;
             text-align: center;
@@ -110,7 +110,7 @@
         .glitch {
             animation: glitch 0.2s infinite, move 8s infinite;
             position: absolute;
-            color: red;
+            color: yellow;
             text-shadow: 2px 2px blue;
         }
 
@@ -131,6 +131,14 @@
         .popup.show {
             display: block;
         }
+
+        .floating-media {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            animation: move 15s infinite;
+            z-index: 500;
+        }
     </style>
 </head>
 <body>
@@ -142,18 +150,56 @@
     <main>
         <div id="warnings-container"></div>
         <div class="track-list">
-            <div class="track">
-                <h2>Track Title 1</h2>
-                <video autoplay muted loop>
-                    <source src="videos/track1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <audio controls>
-                    <source src="tracks/track1.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">"A journey through time and sound."</p>
-            </div>
+    <div class="track">
+        <h2>Midnight Echoes</h2>
+        <p class="description">"A haunting blend of ambient and electronic vibes."</p>
+        <audio controls>
+            <source src="tracks/track1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <p class="description">Ambient, Electronic, Chill</p>
+    </div>
+
+    <div class="track">
+        <h2>Crimson Tides</h2>
+        <p class="description">"A dramatic journey through orchestral soundscapes."</p>
+        <audio controls>
+            <source src="tracks/track2.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <p class="description">Orchestral, Cinematic, Emotional</p>
+    </div>
+
+    <div class="track">
+        <h2>Golden Reverie</h2>
+        <p class="description">"A nostalgic fusion of folk and acoustic melodies."</p>
+        <audio controls>
+            <source src="tracks/track3.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <p class="description">Folk, Acoustic, Nostalgic</p>
+    </div>
+
+    <div class="track">
+        <h2>Neon Dreams</h2>
+        <p class="description">"An energetic mix of synthwave and retro beats."</p>
+        <audio controls>
+            <source src="tracks/track4.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <p class="description">Synthwave, Retro, Energetic</p>
+    </div>
+
+    <div class="track">
+        <h2>Starlit Horizon</h2>
+        <p class="description">"A peaceful exploration of atmospheric sounds."</p>
+        <audio controls>
+            <source src="tracks/track5.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <p class="description">Atmospheric, Chill, Relaxing</p>
+    </div>
+</div>
         </div>
     </main>
 
@@ -162,7 +208,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2024 La Signora. All Rights Reserved. | <a href="#">Contact</a> | <a href="#">Privacy Policy</a></p>
+        <p>&copy; 2025 wwwfueraroom. All Rights Reserved. | <a href="#">Manifesto</a> | <a href="#">Contacts</a></p>
     </footer>
 
     <audio id="alarm-sound" src="alarm.wav" autoplay></audio>
@@ -207,7 +253,23 @@
             setTimeout(() => popup.classList.remove('show'), 5000);
         }
 
-        setInterval(showPopup, 30000); // Show popup every 30 seconds
+        // Show first popup immediately
+        showPopup();
+        setInterval(showPopup, 20000); // Show popup every 20 seconds
+
+        // Floating Media Logic
+        function addFloatingMedia() {
+            const media = document.createElement('img');
+            media.src = 'floating-image.gif'; // Replace with your desired image or gif
+            media.className = 'floating-media';
+            document.body.appendChild(media);
+
+            setTimeout(() => {
+                document.body.removeChild(media);
+            }, 15000); // Remove media after 15 seconds
+        }
+
+        setInterval(addFloatingMedia, 90000); // Add floating media every 1.5 minutes
 
         // Initial Setup
         addGlitches();
