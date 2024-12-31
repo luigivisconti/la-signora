@@ -13,7 +13,9 @@
             background-size: cover;
             color: #eee;
             text-align: center;
-        }.glitch {
+        }
+
+        .glitch {
             position: absolute;
             font-size: 1.5rem;
             font-weight: bold;
@@ -69,6 +71,7 @@
                 left: 10%;
             }
         }
+
         .popup {
             position: fixed;
             top: 50%;
@@ -162,8 +165,6 @@
         footer a:hover {
             text-decoration: underline;
         }
-
-        
     </style>
 </head>
 <body>
@@ -175,56 +176,55 @@
     <main>
         <div id="warnings-container"></div>
         <div class="track-list">
-    <div class="track">
-        <h2>Midnight Echoes</h2>
-        <p class="description">"A haunting blend of ambient and electronic vibes."</p>
-        <audio controls>
-            <source src="tracks/track1.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <p class="description">Ambient, Electronic, Chill</p>
-    </div>
+            <div class="track">
+                <h2>Midnight Echoes</h2>
+                <p class="description">"A haunting blend of ambient and electronic vibes."</p>
+                <audio controls>
+                    <source src="tracks/track1.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="description">Ambient, Electronic, Chill</p>
+            </div>
 
-    <div class="track">
-        <h2>Crimson Tides</h2>
-        <p class="description">"A dramatic journey through orchestral soundscapes."</p>
-        <audio controls>
-            <source src="tracks/track2.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <p class="description">Orchestral, Cinematic, Emotional</p>
-    </div>
+            <div class="track">
+                <h2>Crimson Tides</h2>
+                <p class="description">"A dramatic journey through orchestral soundscapes."</p>
+                <audio controls>
+                    <source src="tracks/track2.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="description">Orchestral, Cinematic, Emotional</p>
+            </div>
 
-    <div class="track">
-        <h2>Golden Reverie</h2>
-        <p class="description">"A nostalgic fusion of folk and acoustic melodies."</p>
-        <audio controls>
-            <source src="tracks/track3.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <p class="description">Folk, Acoustic, Nostalgic</p>
-    </div>
+            <div class="track">
+                <h2>Golden Reverie</h2>
+                <p class="description">"A nostalgic fusion of folk and acoustic melodies."</p>
+                <audio controls>
+                    <source src="tracks/track3.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="description">Folk, Acoustic, Nostalgic</p>
+            </div>
 
-    <div class="track">
-        <h2>Neon Dreams</h2>
-        <p class="description">"An energetic mix of synthwave and retro beats."</p>
-        <audio controls>
-            <source src="tracks/track4.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <p class="description">Synthwave, Retro, Energetic</p>
-    </div>
+            <div class="track">
+                <h2>Neon Dreams</h2>
+                <p class="description">"An energetic mix of synthwave and retro beats."</p>
+                <audio controls>
+                    <source src="tracks/track4.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="description">Synthwave, Retro, Energetic</p>
+            </div>
 
-    <div class="track">
-        <h2>Starlit Horizon</h2>
-        <p class="description">"A peaceful exploration of atmospheric sounds."</p>
-        <audio controls>
-            <source src="tracks/track5.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <p class="description">Atmospheric, Chill, Relaxing</p>
-    </div>
-</div>
+            <div class="track">
+                <h2>Starlit Horizon</h2>
+                <p class="description">"A peaceful exploration of atmospheric sounds."</p>
+                <audio controls>
+                    <source src="tracks/track5.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="description">Atmospheric, Chill, Relaxing</p>
+            </div>
         </div>
     </main>
 
@@ -238,7 +238,7 @@
 
     <audio id="alarm-sound" src="alarm.wav" autoplay></audio>
 
-        <script>
+    <script>
         const warningsContainer = document.getElementById('warnings-container');
         const mediaContainer = document.getElementById('media-container');
 
@@ -255,20 +255,6 @@
             " ha sempre saputo."
         ];
 
-        // Pop-up Message Logic
-        function showPopup() {
-            const popup = document.getElementById('popup');
-            const popupText = popupMessages[Math.floor(Math.random() * popupMessages.length)];
-            popup.querySelector('p').innerText = popupText;
-            popup.classList.add('show');
-            setTimeout(() => popup.classList.remove('show'), 5000);
-        }
-
-        // Show first popup immediately
-        showPopup();
-        setInterval(showPopup, 20000); // Show popup every 20 seconds
-
-            
         function createGlitch() {
             const glitch = document.createElement('div');
             glitch.className = 'glitch';
@@ -282,6 +268,8 @@
                 warningsContainer.removeChild(glitch);
             }, 10000);
         }
+
+        let imageIndex = 1; // Start with the first image
 
         function addFloatingMedia() {
             const media = document.createElement('img');
@@ -303,8 +291,6 @@
         setInterval(createGlitch, 1500);
         // Add floating media every 20 seconds
         setInterval(addFloatingMedia, 20000);
-            
     </script>
-    
 </body>
 </html>
