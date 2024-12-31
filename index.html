@@ -140,9 +140,7 @@
     </header>
 
     <main>
-        <div id="warning" class="glitch">
-            SYSTEM ERROR: AI Overload Detected!
-        </div>
+        <div id="warnings-container"></div>
         <div class="track-list">
             <div class="track">
                 <h2>Track Title 1</h2>
@@ -164,7 +162,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2024 La Signora. All Rights Reserved. | <a href="#">Contact</a> | <a href="#">Privacy Policy</a></p>
+        <p>&copy; 2025 wwwfueraroom All Rights Reserved. | <a href="#">Manifesto</a> | <a href="#">Contact us</a></p>
     </footer>
 
     <audio id="alarm-sound" src="alarm.wav" autoplay></audio>
@@ -183,21 +181,37 @@
             "La Signora ha sempre saputo."
         ];
 
-        // Glitch Text Replacement and Movement
-        const warning = document.getElementById('warning');
-        setInterval(() => {
-            const randomMessage = popupMessages[Math.floor(Math.random() * popupMessages.length)];
-            warning.innerText = randomMessage;
-        }, 5000);
+        const warningsContainer = document.getElementById('warnings-container');
 
-        // Pop-up Message
-        setTimeout(() => {
+        // Glitch Text Scaling Logic
+        let glitchCount = 1;
+        function addGlitches() {
+            warningsContainer.innerHTML = '';
+            for (let i = 0; i < glitchCount; i++) {
+                const warning = document.createElement('div');
+                warning.className = 'glitch';
+                warning.innerText = popupMessages[Math.floor(Math.random() * popupMessages.length)];
+                warningsContainer.appendChild(warning);
+            }
+            glitchCount = Math.min(glitchCount + 1, 5); // Maximum of 5 glitches
+        }
+
+        setInterval(addGlitches, 60000); // Add more glitches every minute
+
+        // Pop-up Message Logic
+        function showPopup() {
             const popup = document.getElementById('popup');
             const popupText = popupMessages[Math.floor(Math.random() * popupMessages.length)];
             popup.querySelector('p').innerText = popupText;
             popup.classList.add('show');
             setTimeout(() => popup.classList.remove('show'), 5000);
-        }, 3000);
+        }
+
+        setInterval(showPopup, 30000); // Show popup every 30 seconds
+
+        // Initial Setup
+        addGlitches();
     </script>
 </body>
 </html>
+
