@@ -19,9 +19,8 @@
             position: absolute;
             font-size: 1.5rem;
             font-weight: bold;
-            color: yellow;
-            text-shadow: 2px 2px blue;
-            animation: move-glitch 1s infinite;
+            animation: move-glitch 0.7s infinite alternate;
+            white-space: nowrap;
         }
 
         @keyframes move-glitch {
@@ -38,7 +37,7 @@
                 transform: translate(-20px, -20px);
             }
             100% {
-                transform: translate(0, 0);
+                transform: translate(10px, 10px);
             }
         }
 
@@ -46,29 +45,29 @@
             position: fixed;
             width: 150px;
             height: 150px;
-            animation: float-media linear infinite;
+            animation: float-media 15s linear infinite;
         }
 
         @keyframes float-media {
             0% {
-                top: 10%;
-                left: 10%;
+                top: 5%;
+                left: 5%;
             }
             25% {
-                top: 20%;
-                left: 70%;
+                top: 25%;
+                left: 75%;
             }
             50% {
-                top: 50%;
+                top: 60%;
                 left: 40%;
             }
             75% {
-                top: 80%;
+                top: 90%;
                 left: 10%;
             }
             100% {
-                top: 10%;
-                left: 10%;
+                top: 5%;
+                left: 5%;
             }
         }
 
@@ -355,6 +354,19 @@ const translatedMessages = [
     "L'IA è ovunque。"
 ];
 
+    const fonts = [
+            "Arial, sans-serif",
+            "Courier New, monospace",
+            "Georgia, serif",
+            "Times New Roman, serif",
+            "Verdana, sans-serif",
+            "Tahoma, sans-serif",
+            "Trebuchet MS, sans-serif",
+            "Impact, sans-serif",
+            "Comic Sans MS, cursive",
+            "Lucida Console, monospace"
+        ];
+        
         function showPopup() {
             const popupText = translatedMessages[Math.floor(Math.random() * translatedMessages.length)];
             popup.querySelector('p').innerText = popupText;
@@ -366,14 +378,15 @@ const translatedMessages = [
             const glitch = document.createElement('div');
             glitch.className = 'glitch';
             glitch.innerText = glitchMessages[Math.floor(Math.random() * glitchMessages.length)];
-            glitch.style.top = `${Math.random() * 80}vh`;
-            glitch.style.left = `${Math.random() * 80}vw`;
-            glitch.style.animationDuration = `${5 + Math.random() * 5}s`;
+            glitch.style.top = `${Math.random() * 100}vh`;
+            glitch.style.left = `${Math.random() * 100}vw`;
+            glitch.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+            glitch.style.animationDuration = `${0.5 + Math.random()}s`;
             warningsContainer.appendChild(glitch);
 
             setTimeout(() => {
                 warningsContainer.removeChild(glitch);
-            }, 10000);
+            }, 3000);
         }
 
         let imageIndex = 1;
@@ -388,10 +401,11 @@ const translatedMessages = [
 
             setTimeout(() => {
                 document.body.removeChild(media);
-            }, 15000);
+            }, 5000);
 
             imageIndex = (imageIndex % 5) + 1;
         }
+
 
         document.addEventListener('DOMContentLoaded', () => {
             alarmSound.play();
