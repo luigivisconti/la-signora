@@ -225,6 +225,56 @@
                 </audio>
                 <p class="description">Atmospheric, Chill, Relaxing</p>
             </div>
+
+            <div class="track">
+                <h2>Ocean Whispers</h2>
+                <p class="description">"Melodic waves of tranquility."</p>
+                <audio controls>
+                    <source src="tracks/track6.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="description">Relaxing, Ambient</p>
+            </div>
+
+            <div class="track">
+                <h2>Desert Mirage</h2>
+                <p class="description">"Evoking the mystique of endless sands."</p>
+                <audio controls>
+                    <source src="tracks/track7.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="description">Cinematic, Mysterious</p>
+            </div>
+
+            <div class="track">
+                <h2>Urban Pulse</h2>
+                <p class="description">"A vibrant mix of city sounds and beats."</p>
+                <audio controls>
+                    <source src="tracks/track8.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="description">Electronic, Energetic</p>
+            </div>
+
+            <div class="track">
+                <h2>Twilight Journey</h2>
+                <p class="description">"A soulful transition from dusk to night."</p>
+                <audio controls>
+                    <source src="tracks/track9.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="description">Soulful, Relaxing</p>
+            </div>
+
+            <div class="track">
+                <h2>Frozen Echoes</h2>
+                <p class="description">"An icy resonance of time."</p>
+                <audio controls>
+                    <source src="tracks/track10.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="description">Ambient, Minimalist</p>
+            </div>
         </div>
     </main>
 
@@ -256,8 +306,21 @@
             "L'AI è ovunque."
         ];
 
+        const translatedMessages = [
+            "Welcome to the AI domain.",
+            "La Señora te observa.",
+            "Le chaos est un ordre.",
+            "Nessuna via di fuga.",
+            "Todo es una ilusión.",
+            "Ralentissez et écoutez.",
+            "Você faz parte disso.",
+            "Todo estaba escrito.",
+            "El glitch es solo el comienzo.",
+            "L'IA est partout."
+        ];
+
         function showPopup() {
-            const popupText = glitchMessages[Math.floor(Math.random() * glitchMessages.length)];
+            const popupText = translatedMessages[Math.floor(Math.random() * translatedMessages.length)];
             popup.querySelector('p').innerText = popupText;
             popup.classList.add('show');
             setTimeout(() => popup.classList.remove('show'), 5000);
@@ -305,3 +368,5 @@
     </script>
 </body>
 </html>
+
+
