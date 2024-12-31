@@ -90,7 +90,24 @@
         .popup.show {
             display: block;
         }
+        .popup-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
 
+        .popup-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         header {
             background: rgba(0, 0, 0, 0.6);
             padding: 20px;
@@ -283,6 +300,10 @@
         <p></p>
     </div>
 
+    <div id="video-popup" class="popup-video">
+        <video autoplay muted></video>
+    </div>
+    
     <footer>
         <p>&copy; 2025 wwwfueraroom. All Rights Reserved. | <a href="#">Manifesto</a> | <a href="#">Contacts</a></p>
     </footer>
@@ -293,6 +314,8 @@
         const warningsContainer = document.getElementById('warnings-container');
         const popup = document.getElementById('popup');
         const alarmSound = document.getElementById('alarm-sound');
+        const videoPopup = document.getElementById('video-popup');
+        const videoElement = videoPopup.querySelector('video');
 
  const glitchMessages = [
     "Bentornato nel dominio dell'AI.",
@@ -408,9 +431,28 @@ const translatedMessages = [
             imageIndex = (imageIndex % 5) + 1;
         }
 
+       let videoIndex = 1;
 
+        function playVideo() {
+            videoElement.src = `videos/video-${videoIndex}.mp4`;
+            videoPopup.style.display = 'flex';
+            videoElement.play();
+
+            videoElement.onended = () => {
+                videoPopup.style.display = 'none';
+                videoIndex = (videoIndex % 5) + 1; // Adjust for number of videos available
+            };
+        }
+
+        function preloadVideo() {
+            const nextVideo = new Image();
+            nextVideo.src = `videos/video-${(videoIndex % 5) + 1}.mp4`;
+        }
+        
         document.addEventListener('DOMContentLoaded', () => {
             alarmSound.play();
+            setInterval(playVideo, 90000); // Play video every 1.5 minutes
+            setInterval(preloadVideo, 60000); // Preload next video 30 seconds before
             showPopup();
         });
 
