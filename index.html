@@ -99,8 +99,17 @@
             100% { transform: translate(0, 0); }
         }
 
+        @keyframes move {
+            0% { top: 10%; left: 10%; }
+            25% { top: 20%; left: 70%; }
+            50% { top: 50%; left: 40%; }
+            75% { top: 80%; left: 10%; }
+            100% { top: 10%; left: 10%; }
+        }
+
         .glitch {
-            animation: glitch 0.2s infinite;
+            animation: glitch 0.2s infinite, move 8s infinite;
+            position: absolute;
             color: red;
             text-shadow: 2px 2px blue;
         }
@@ -151,34 +160,44 @@
     </main>
 
     <div id="popup" class="popup">
-        <p>La Signora controlla tutto. Bentornato nel suo mondo.</p>
+        <p></p>
     </div>
 
     <footer>
-        <p>&copy; 2025 wwwfueraroom All Rights Reserved. | <a href="#">Manifesto</a> | <a href="#">Contacts</a></p>
+        <p>&copy; 2024 La Signora. All Rights Reserved. | <a href="#">Contact</a> | <a href="#">Privacy Policy</a></p>
     </footer>
 
-    <audio id="alarm-sound" src="alarm.wav"></audio>
+    <audio id="alarm-sound" src="alarm.mp3" autoplay></audio>
 
     <script>
-        // Glitch Text Replacement
-        setTimeout(() => {
-            document.getElementById('warning').innerText = 'Welcome to La Signora\'s domain.';
+        const popupMessages = [
+            "La Signora ti osserva.",
+            "Bentornato nel dominio dell'AI.",
+            "Il glitch è solo l'inizio.",
+            "Cosa stai cercando davvero?",
+            "Il caos è ordine.",
+            "Nessuna via d'uscita.",
+            "Tutto è un'illusione.",
+            "Rallenta e ascolta.",
+            "Tu sei parte di questo.",
+            "La Signora ha sempre saputo."
+        ];
+
+        // Glitch Text Replacement and Movement
+        const warning = document.getElementById('warning');
+        setInterval(() => {
+            const randomMessage = popupMessages[Math.floor(Math.random() * popupMessages.length)];
+            warning.innerText = randomMessage;
         }, 5000);
 
         // Pop-up Message
         setTimeout(() => {
             const popup = document.getElementById('popup');
+            const popupText = popupMessages[Math.floor(Math.random() * popupMessages.length)];
+            popup.querySelector('p').innerText = popupText;
             popup.classList.add('show');
             setTimeout(() => popup.classList.remove('show'), 5000);
-        }, 8000);
-
-        // Play Alarm Sound
-        setTimeout(() => {
-            const alarmSound = document.getElementById('alarm-sound');
-            alarmSound.play();
-        }, 10000);
+        }, 3000);
     </script>
 </body>
 </html>
-
