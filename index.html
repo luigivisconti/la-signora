@@ -432,39 +432,25 @@ const translatedMessages = [
         }
 
 let videoIndex = 1;
-
 function playVideo() {
+    console.log(`Attempting to play video: videos/video-${videoIndex}.mp4`);
     videoElement.src = `videos/video-${videoIndex}.mp4`;
     videoElement.muted = true; // Ensure muted is applied dynamically
     videoPopup.style.display = 'flex';
-
-    videoElement.play().catch((error) => {
-        console.error("Autoplay failed. Attempting to resolve...", error);
-        // Prompt user interaction to resolve autoplay issues
-        const overlay = document.createElement('div');
-        overlay.style.position = 'fixed';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-        overlay.style.color = 'white';
-        overlay.style.display = 'flex';
-        overlay.style.alignItems = 'center';
-        overlay.style.justifyContent = 'center';
-        overlay.style.zIndex = '3000';
-        overlay.innerText = 'Tap to play video';
-        document.body.appendChild(overlay);
-
-        overlay.addEventListener('click', () => {
-            videoElement.play();
-            document.body.removeChild(overlay);
+    videoElement.load(); // Forza il caricamento del video
+    videoElement.play()
+        .then(() => {
+            console.log(`Playing video: videos/video-${videoIndex}.mp4`);
+            videoPopup.style.display = 'flex';
+        })
+        .catch((error) => {
+            console.error("Error playing video:", error);
         });
-    });
 
     videoElement.onended = () => {
+        console.log(`Video ended: videos/video-${videoIndex}.mp4`);
         videoPopup.style.display = 'none';
-        videoIndex = (videoIndex % 5) + 1; // Rotate videos
+        videoIndex = (videoIndex % 5) + 1; // Rotazione dei video
     };
 }
 
