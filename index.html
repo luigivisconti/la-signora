@@ -434,30 +434,30 @@ const translatedMessages = [
 let videoIndex = 1;
 function playVideo() {
     console.log(`Attempting to play video: videos/video-${videoIndex}.mp4`);
-    videoElement.src = `videos/video-${videoIndex}.mp4`;
-    videoElement.muted = true; // Ensure muted is applied dynamically
-    videoPopup.style.display = 'flex';
-    videoElement.load(); // Forza il caricamento del video
-    videoElement.play()
-        .then(() => {
-            console.log(`Playing video: videos/video-${videoIndex}.mp4`);
-            videoPopup.style.display = 'flex';
-        })
-        .catch((error) => {
-            console.error("Error playing video:", error);
-        });
+  //  videoElement.src = `videos/video-${videoIndex}.mp4`;
+  //  videoElement.muted = true; // Ensure muted is applied dynamically
+  //  videoPopup.style.display = 'flex';
+  //  videoElement.load(); // Forza il caricamento del video
+  //  videoElement.play()
+ //       .then(() => {
+  //          console.log(`Playing video: videos/video-${videoIndex}.mp4`);
+  //          videoPopup.style.display = 'flex';
+  //      })
+  //      .catch((error) => {
+  //          console.error("Error playing video:", error);
+   //     });
 
-    videoElement.onended = () => {
-        console.log(`Video ended: videos/video-${videoIndex}.mp4`);
-        videoPopup.style.display = 'none';
-        videoIndex = (videoIndex % 5) + 1; // Rotazione dei video
-    };
+ //   videoElement.onended = () => {
+ //       console.log(`Video ended: videos/video-${videoIndex}.mp4`);
+  //      videoPopup.style.display = 'none';
+  //      videoIndex = (videoIndex % 5) + 1; // Rotazione dei video
+  //  };
 }
 
 
         function preloadVideo() {
-            const nextVideo = new Image();
-            nextVideo.src = `videos/video-${(videoIndex % 5) + 1}.mp4`;
+           // const nextVideo = new Image();
+          //  nextVideo.src = `videos/video-${(videoIndex % 5) + 1}.mp4`;
         }
         
 document.addEventListener('DOMContentLoaded', () => {
@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         setInterval(createGlitch, 1500);
-        setInterval(addFloatingMedia, 20000);
+        setInterval(addFloatingMedia, 10000);
         setInterval(showPopup, 20000);
     </script>
 </body>
