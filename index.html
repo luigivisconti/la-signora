@@ -124,39 +124,41 @@
             font-size: 1rem;
             color: #ccc;
         }
-       .input-container {
+ .form-container {
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(34, 34, 34, 0.8);
+            border-radius: 8px;
+            width: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container form {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .input-container {
-            position: relative;
-            width: 320px;
-        }
-
-        .input-container input[type="text"] {
-            width: 100%;
-            padding: 10px 40px 10px 10px; /* Spazio per il pulsante interno */
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .input-container button {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            background: none;
+        .form-container input[type="text"],
+        .form-container select {
+            padding: 10px;
             border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-container button {
+            padding: 10px;
+            background: #08f;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            border-radius: 5px;
             cursor: pointer;
         }
 
-        .input-container button img {
-            width: 24px;
-            height: 24px;
+        .form-container button:hover {
+            background: #06c;
         }
 
         .response-box {
@@ -238,7 +240,7 @@
 
     <main>
         <div id="warnings-container"></div>
-        <div class="input-container">
+        <div class="form-container">
             <input type="text" id="user-question" placeholder="Chiedimi qualcosa...">
             <button type="submit" id="submit-button">
                 <img src="play-icon.png" alt="Play">
@@ -371,7 +373,7 @@
         const videoElement = videoPopup.querySelector('video');
         const apiUrl = 'https://signora-fchvhxe6dqd0gtf5.westeurope-01.azurewebsites.net/api/generate-response';
 
-       document.getElementById('input-container').addEventListener('submit', async (event) => {
+       document.getElementById('form-container').addEventListener('submit', async (event) => {
             event.preventDefault();
            
             const userQuestion = document.getElementById('user-question').value;
