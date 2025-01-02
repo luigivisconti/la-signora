@@ -371,7 +371,7 @@
         const videoElement = videoPopup.querySelector('video');
         const apiUrl = 'https://signora-fchvhxe6dqd0gtf5.westeurope-01.azurewebsites.net/api/generate-response';
 
-       document.getElementById('question-form').addEventListener('submit', async (event) => {
+       document.getElementById('input-container').addEventListener('submit', async (event) => {
             event.preventDefault();
            
             const userQuestion = document.getElementById('user-question').value;
