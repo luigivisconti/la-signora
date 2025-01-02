@@ -538,7 +538,7 @@ const translatedMessages = [
 
             setTimeout(() => {
                 document.body.removeChild(media);
-            }, 5000);
+            }, 9800);
 
             imageIndex = (imageIndex % 7) + 1;
         }
@@ -571,49 +571,53 @@ function playVideo() {
            // const nextVideo = new Image();
           //  nextVideo.src = `videos/video-${(videoIndex % 5) + 1}.mp4`;
         }
-        
-document.addEventListener('DOMContentLoaded', () => {
-    // Play the alarm sound immediately if autoplay is supported
-    alarmSound.play().catch((error) => {
-        console.error("Autoplay blocked for alarm sound:", error);
-        // Request user interaction
-        const overlay = document.createElement('div');
-        overlay.style.position = 'fixed';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-        overlay.style.color = 'white';
-        overlay.style.display = 'flex';
-        overlay.style.alignItems = 'center';
-        overlay.style.justifyContent = 'center';
-        overlay.style.zIndex = '3000';
-        overlay.innerText = 'Tap to start';
-        document.body.appendChild(overlay);
+            document.addEventListener('DOMContentLoaded', () => {
+        // Play the alarm sound immediately if autoplay is supported
+        alarmSound.play().catch((error) => {
+            console.error("Autoplay blocked for alarm sound:", error);
+            // Request user interaction
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            overlay.style.color = 'white';
+            overlay.style.display = 'flex';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.zIndex = '3000';
+            overlay.innerText = 'Tap to start';
+            document.body.appendChild(overlay);
 
-        overlay.addEventListener('click', () => {
-            alarmSound.play();
-            document.body.removeChild(overlay);
+            overlay.addEventListener('click', () => {
+                alarmSound.play();
+                document.body.removeChild(overlay);
+                showPopup(); // Show popup after the first tap
+
+                // Delay the initialization of glitches and floating media
+                setTimeout(() => {
+                    setInterval(createGlitch, 1500);
+                    setInterval(addFloatingMedia, 10023);
+                }, 30000); // 30-second delay
+            });
         });
+
+        // Handle tab visibility to ensure autoplay works when returning to the page
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                alarmSound.play();
+            }
+        });
+
+        // Initialize video intervals
+        setInterval(playVideo, 90000); // Play video every 1.5 minutes
+        setInterval(preloadVideo, 60000); // Preload next video 30 seconds before
     });
 
-    // Handle tab visibility to ensure autoplay works when returning to the page
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) {
-            alarmSound.play();
-        }
-    });
+    setInterval(showPopup, 17500);
 
-    // Initialize other intervals
-    setInterval(playVideo, 90000); // Play video every 1.5 minutes
-    setInterval(preloadVideo, 60000); // Preload next video 30 seconds before
-});
-
-
-        setInterval(createGlitch, 1500);
-        setInterval(addFloatingMedia, 10023);
-        setInterval(showPopup, 17500);
     </script>
 </body>
 </html>
