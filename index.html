@@ -383,54 +383,52 @@
         const videoPopup = document.getElementById('video-popup');
         const videoElement = videoPopup.querySelector('video');
         const apiUrl = 'https://signora-fchvhxe6dqd0gtf5.westeurope-01.azurewebsites.net/api/generate-response';
-
         const form = document.getElementById('question-form');
         const userQuestionInput = document.getElementById('user-question');
         const responseBox = document.getElementById('response-box');
 
-        form.addEventListener('submit', async (event) => {
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const userQuestion = userQuestionInput.value.trim();
+        const language = 'it';
+
+        if (!userQuestion) {
+            responseBox.textContent = "Inserisci una domanda valida.";
+            return;
+        }
+
+        responseBox.textContent = "Sto pensando...";
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_input: userQuestion,
+                    language: language
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                responseBox.textContent = data.response;
+            } else {
+                responseBox.textContent = "Si è verificato un errore. Riprova più tardi.";
+            }
+        } catch (error) {
+            responseBox.textContent = "Errore di connessione. Verifica la tua rete.";
+            console.error(error);
+        }
+    });
+
+    userQuestionInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
             event.preventDefault();
-
-            const userQuestion = userQuestionInput.value;
-            const language = languageSelect.value;
-
-            if (!userQuestion.trim()) {
-                responseBox.textContent = "Inserisci una domanda valida.";
-                return;
-            }
-
-            responseBox.textContent = "Sto pensando...";
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_input: userQuestion,
-                        language: language
-                    })
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    responseBox.textContent = data.response;
-                } else {
-                    responseBox.textContent = "Si è verificato un errore. Riprova più tardi.";
-                }
-            } catch (error) {
-                responseBox.textContent = "Errore di connessione. Verifica la tua rete.";
-                console.error(error);
-            }
-        });
-        
-        // Assicurati che premendo "Invio" il form funzioni correttamente
-        userQuestionInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                form.dispatchEvent(new Event('submit', { cancelable: true }));
-            }
-        });
-        
+            form.dispatchEvent(new Event('submit', { cancelable: true }));
+        }
+    });
+             
  const glitchMessages = [
     "Bentornato nel dominio dell'AI.",
     "La Signora ti osserva.",
