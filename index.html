@@ -181,48 +181,31 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
         }
         
-        .track-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-            gap: 15px;
-        }
 
-        .track {
-            background: rgba(34, 34, 34, 0.8);
-            border: 1px solid #444;
-            border-radius: 8px;
-            padding: 15px;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-        }
+     .playlist-container {
+        margin: 20px auto;
+        padding: 20px;
+        background: rgba(34, 34, 34, 0.8);
+        border-radius: 8px;
+        width: 80%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    }
 
-        .track h2 {
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 10px;
-        }
+    .song-item {
+        margin-bottom: 15px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid #444;
+        border-radius: 5px;
+    }
 
-        .track video {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .track audio {
-            width: 100%;
-            margin-top: 10px;
-            outline: none;
-        }
-
-        .track .description {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #bbb;
-        }
-
+    .song-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        color: #eee;
+        
         footer {
             margin-top: 20px;
             padding: 10px;
@@ -244,7 +227,7 @@
 <body>
     <header>
         <h1>La Signora</h1>
-        <p>Exclusive AI-Generated Music</p>
+        <p>A Fuera AI-Generated Character</p>
     </header>
 
     <main>
@@ -259,107 +242,7 @@
             <div id="response-box" class="response-box">La risposta apparirà qui...</div>
         </div>
 
-        <div class="track-list">
-            <div class="track">
-                <h2>Midnight Echoes</h2>
-                <p class="description">"A haunting blend of ambient and electronic vibes."</p>
-                <audio controls>
-                    <source src="tracks/track1.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">Ambient, Electronic, Chill</p>
-            </div>
-
-            <div class="track">
-                <h2>Crimson Tides</h2>
-                <p class="description">"A dramatic journey through orchestral soundscapes."</p>
-                <audio controls>
-                    <source src="tracks/track2.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">Orchestral, Cinematic, Emotional</p>
-            </div>
-
-            <div class="track">
-                <h2>Golden Reverie</h2>
-                <p class="description">"A nostalgic fusion of folk and acoustic melodies."</p>
-                <audio controls>
-                    <source src="tracks/track3.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">Folk, Acoustic, Nostalgic</p>
-            </div>
-
-            <div class="track">
-                <h2>Neon Dreams</h2>
-                <p class="description">"An energetic mix of synthwave and retro beats."</p>
-                <audio controls>
-                    <source src="tracks/track4.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">Synthwave, Retro, Energetic</p>
-            </div>
-
-            <div class="track">
-                <h2>Starlit Horizon</h2>
-                <p class="description">"A peaceful exploration of atmospheric sounds."</p>
-                <audio controls>
-                    <source src="tracks/track5.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">Atmospheric, Chill, Relaxing</p>
-            </div>
-
-            <div class="track">
-                <h2>Ocean Whispers</h2>
-                <p class="description">"Melodic waves of tranquility."</p>
-                <audio controls>
-                    <source src="tracks/track6.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">Relaxing, Ambient</p>
-            </div>
-
-            <div class="track">
-                <h2>Desert Mirage</h2>
-                <p class="description">"Evoking the mystique of endless sands."</p>
-                <audio controls>
-                    <source src="tracks/track7.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">Cinematic, Mysterious</p>
-            </div>
-
-            <div class="track">
-                <h2>Urban Pulse</h2>
-                <p class="description">"A vibrant mix of city sounds and beats."</p>
-                <audio controls>
-                    <source src="tracks/track8.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">Electronic, Energetic</p>
-            </div>
-
-            <div class="track">
-                <h2>Twilight Journey</h2>
-                <p class="description">"A soulful transition from dusk to night."</p>
-                <audio controls>
-                    <source src="tracks/track9.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">Soulful, Relaxing</p>
-            </div>
-
-            <div class="track">
-                <h2>Frozen Echoes</h2>
-                <p class="description">"An icy resonance of time."</p>
-                <audio controls>
-                    <source src="tracks/track10.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="description">Ambient, Minimalist</p>
-            </div>
-        </div>
+       <div id="playlist-container" class="playlist-container"></div>
     </main>
 
     <div id="popup" class="popup">
@@ -377,7 +260,9 @@
     <audio id="alarm-sound" src="alarm.wav" autoplay></audio>
 
     <script>
-        const warningsContainer = document.getElementById('warnings-container');          
+        const warningsContainer = document.getElementById('warnings-container');    
+
+    // FORM BOX
         const popup = document.getElementById('popup');
         const alarmSound = document.getElementById('alarm-sound');
         const videoPopup = document.getElementById('video-popup');
@@ -428,7 +313,77 @@
             form.dispatchEvent(new Event('submit', { cancelable: true }));
         }
     });
-             
+
+    // PLAYLIST
+        
+    const playlistContainer = document.getElementById('playlist-container');
+
+    async function fetchTrackInfo(trackNumber) {
+        const response = await fetch(`tracksInfo/track${trackNumber}.txt`);
+        if (!response.ok) {
+            console.warn(`Track info for track${trackNumber} not found.`);
+            return null;
+        }
+
+        const text = await response.text();
+        const trackInfo = {};
+        text.split('\n').forEach(line => {
+            const [key, value] = line.split(':').map(s => s.trim());
+            if (key && value) trackInfo[key.toLowerCase()] = value;
+        });
+
+        return {
+            title: trackInfo.title || `Track ${trackNumber}`,
+            artist: trackInfo.artist || "Unknown Artist",
+            duration: trackInfo.duration || "--:--",
+            src: `tracks/track${trackNumber}.mp3`
+        };
+    }
+
+    async function loadPlaylist() {
+        const tracks = [];
+        let trackNumber = 1;
+
+        while (true) {
+            const trackInfo = await fetchTrackInfo(trackNumber);
+            if (!trackInfo) break;
+            tracks.push(trackInfo);
+            trackNumber++;
+        }
+
+        return tracks;
+    }
+
+    async function renderPlaylist() {
+        const tracks = await loadPlaylist();
+        if (tracks.length === 0) {
+            playlistContainer.innerHTML = "<p>Nessuna traccia disponibile.</p>";
+            return;
+        }
+
+        tracks.forEach(track => {
+            const songElement = document.createElement('div');
+            songElement.className = 'song-item';
+            songElement.innerHTML = `
+                <div class="song-info">
+                    <strong>${track.title}</strong> - <em>${track.artist}</em>
+                    <span>${track.duration}</span>
+                </div>
+                <audio controls>
+                    <source src="${track.src}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            `;
+            playlistContainer.appendChild(songElement);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderPlaylist();
+    });
+
+// GLITCH - POPUP - IMMAGINI
+        
  const glitchMessages = [
     "Bentornato nel dominio dell'AI.",
     "La Signora ti osserva.",
