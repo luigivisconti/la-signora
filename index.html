@@ -124,7 +124,7 @@
             font-size: 1rem;
             color: #ccc;
         }
- .form-container {
+   .form-container {
             margin: 20px auto;
             padding: 20px;
             background: rgba(34, 34, 34, 0.8);
@@ -134,12 +134,20 @@
         }
 
         .form-container form {
+            position: relative;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 10px;
         }
 
-        .form-container input[type="text"],
+        .form-container input[type="text"] {
+            padding: 10px 40px 10px 10px; /* Spazio per il pulsante interno */
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            flex: 1;
+        }
+
         .form-container select {
             padding: 10px;
             border: none;
@@ -148,17 +156,18 @@
         }
 
         .form-container button {
-            padding: 10px;
-            background: #08f;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
             border: none;
-            color: white;
-            font-size: 1rem;
-            border-radius: 5px;
             cursor: pointer;
         }
 
-        .form-container button:hover {
-            background: #06c;
+        .form-container button img {
+            width: 24px;
+            height: 24px;
         }
 
         .response-box {
@@ -241,12 +250,14 @@
     <main>
         <div id="warnings-container"></div>
         <div class="form-container">
-            <input type="text" id="user-question" placeholder="Chiedimi qualcosa...">
-            <button type="submit" id="submit-button">
-                <img src="play-icon.png" alt="Play">
-            </button>
-      <div id="response-box" class="response-box">La risposta apparirà qui...</div>
-      </div>
+            <form id="question-form">
+                <input type="text" id="user-question" placeholder="Chiedimi qualcosa..." required>
+                <button type="submit">
+                    <img src="play-icon.png" alt="Play">
+                </button>
+            </form>
+            <div id="response-box" class="response-box">La risposta apparirà qui...</div>
+        </div>
 
         <div class="track-list">
             <div class="track">
@@ -372,12 +383,12 @@
         const videoPopup = document.getElementById('video-popup');
         const videoElement = videoPopup.querySelector('video');
         const apiUrl = 'https://signora-fchvhxe6dqd0gtf5.westeurope-01.azurewebsites.net/api/generate-response';
-
-       document.getElementById('form-container').addEventListener('submit', async (event) => {
+        
+        document.getElementById('question-form').addEventListener('submit', async (event) => {
             event.preventDefault();
-           
+
             const userQuestion = document.getElementById('user-question').value;
-            const language = 'it';
+            const language = document.getElementById('language-select').value;
             const responseBox = document.getElementById('response-box');
 
             responseBox.textContent = "Sto pensando...";
