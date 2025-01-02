@@ -124,38 +124,37 @@
             font-size: 1rem;
             color: #ccc;
         }
-
-        .form-container {
-            margin: 20px auto;
-            padding: 20px;
-            background: rgba(34, 34, 34, 0.8);
-            border-radius: 8px;
-            width: 50%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-        }
-
-        .form-container form {
+       .input-container {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
         }
 
-        .form-container input[type="text"],
-        .form-container select {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
+        .input-container {
+            position: relative;
+            width: 320px;
+        }
+
+        .input-container input[type="text"] {
+            width: 100%;
+            padding: 10px 40px 10px 10px; /* Spazio per il pulsante interno */
             font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
-        .form-container button {
+        .input-container button {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
             background: none;
             border: none;
             cursor: pointer;
-            margin-left: 10px;
         }
 
-        .form-container button img {
+        .input-container button img {
             width: 24px;
             height: 24px;
         }
@@ -239,15 +238,14 @@
 
     <main>
         <div id="warnings-container"></div>
-         <div class="form-container">
-            <form id="question-form">
-                <input type="text" id="user-question" placeholder="Chiedimi qualcosa..." required>
-                <button type="submit" id="submit-button">
+        <div class="input-container">
+            <input type="text" id="user-question" placeholder="Chiedimi qualcosa...">
+            <button type="submit" id="submit-button">
                 <img src="play-icon.png" alt="Play">
-            </button>            
-            </form>
-            <div id="response-box" class="response-box">La risposta apparirà qui...</div>
+            </button>
         </div>
+       <div id="response-box" class="response-box">La risposta apparirà qui...</div>
+
         <div class="track-list">
             <div class="track">
                 <h2>Midnight Echoes</h2>
