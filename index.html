@@ -244,13 +244,6 @@
          <div class="form-container">
             <form id="question-form">
                 <input type="text" id="user-question" placeholder="Chiedi a La Signora..." required>
-                <select id="language-select">
-                    <option value="auto">Rileva automaticamente</option>
-                    <option value="en">Inglese</option>
-                    <option value="it">Italiano</option>
-                    <option value="es">Spagnolo</option>
-                    <option value="fr">Francese</option>
-                </select>
                 <button type="submit">Chiedi</button>
             </form>
             <div id="response-box" class="response-box">La risposta apparirà qui...</div>
@@ -384,7 +377,7 @@
             event.preventDefault();
            
             const userQuestion = document.getElementById('user-question').value;
-            const language = document.getElementById('language-select').value;
+            const language = 'it';
             const responseBox = document.getElementById('response-box');
 
             responseBox.textContent = "Sto pensando...";
