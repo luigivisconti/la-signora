@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avatar Editor</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #ffa726;
+    }
+    canvas {
+      border: 1px solid #ffa726;
+      background-color: #000;
+      cursor: crosshair;
+    }
+    .controls, .prompt-box, .session-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      padding: 10px;
+      background-color: rgba(50, 50, 50, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+    .controls button, .prompt-box button, .session-controls button {
+      background-color: #ffa726;
+      color: #ffffff;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .controls button:hover, .prompt-box button:hover, .session-controls button:hover {
+      background-color: #fb8c00;
+    }
+    input[type="file"], input[type="text"] {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border: 1px solid #ffa726;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      outline: none;
+    }
+    input[type="text"]:focus {
+      border-color: #fb8c00;
+    }
+    .brush-info {
+      color: #ffa726;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    #optionsBox {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+      background-color: rgba(30, 30, 30, 0.8);
+      padding: 10px;
+      border-radius: 10px;
+    }
+    #optionsBox button {
+      background-color: #ffffff;
+      color: #1e1e1e;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Avatar Editor</h1>
+  <input type="file" id="imageUpload" accept="image/*">
+  <canvas id="canvas" width="500" height="500"></canvas>
+
+  <div class="controls">
+    <label class="brush-info">Brush Size:</label>
+    <button id="decreaseBrush">-</button>
+    <span id="brushSizeDisplay" class="brush-info">10</span>
+    <button id="increaseBrush">+</button>
+    <button id="clearMask">Clear Mask</button>
+    <button id="revertMask" disabled>&#8634;</button>
+  </div>
+
+  <div id="optionsBox">
+    <h2 style="color: #ffa726;">AI Suggestions</h2>
+    <button id="acceptOption">Accept</button>
+    <button id="rejectOption">Reject</button>
+  </div>
+
+  <div class="prompt-box">
+    <label class="brush-info">Enter Prompt:</label>
+    <input type="text" id="promptInput" placeholder="e.g., Add blue curly hair">
+    <button id="submitEdit">Submit Edit</button>
+  </div>
+
+  <div class="session-controls">
+    <button id="saveChanges">Save Changes</button>
+    <button id="discardChanges">Discard Changes</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let image = new Image();
+    let tempImage = null;
+    const revertButton = document.getElementById('revertMask');
+    const optionsBox = document.getElementById('optionsBox');
+    const saveChangesButton = document.getElementById('saveChanges');
+    const discardChangesButton = document.getElementById('discardChanges');
+
+    image.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    };
+
+    const imageUpload = document.getElementById('imageUpload');
+    imageUpload.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        image.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('submitEdit').addEventListener('click', () => {
+      const prompt = document.getElementById('promptInput').value;
+      if (!prompt) {
+        alert('Please enter a prompt!');
+        return;
+      }
+      optionsBox.style.display = 'flex';
+      tempImage = new Image();
+      tempImage.src = canvas.toDataURL(); // Simulate AI edit
+      tempImage.onload = () => {
+        ctx.drawImage(tempImage, 0, 0, canvas.width, canvas.height);
+        revertButton.disabled = false;
+      };
+    });
+
+    document.getElementById('acceptOption').addEventListener('click', () => {
+      image.src = tempImage.src;
+      tempImage = null;
+      optionsBox.style.display = 'none';
+    });
+
+    document.getElementById('rejectOption').addEventListener('click', () => {
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      tempImage = null;
+      optionsBox.style.display = 'none';
+    });
+
+    revertButton.addEventListener('click', () => {
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      revertButton.disabled = true;
+    });
+
+    saveChangesButton.addEventListener('click', () => {
+      alert('Changes saved!');
+    });
+
+    discardChangesButton.addEventListener('click', () => {
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      alert('Changes discarded.');
+    });
+  </script>
+</body>
+</html>
