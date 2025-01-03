@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avatar Editor</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #1e1e1e;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #ffa726;
+    }
+    canvas {
+      border: 1px solid #ffa726;
+      background-color: #000;
+      cursor: crosshair;
+    }
+    .controls, .prompt-box, .session-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      padding: 10px;
+      background-color: rgba(30, 30, 30, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    .controls button, .prompt-box button, .session-controls button {
+      background-color: #ffa726;
+      color: #ffffff;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .controls button:hover, .prompt-box button:hover, .session-controls button:hover {
+      background-color: #fb8c00;
+    }
+    input[type="file"], input[type="text"] {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border: 1px solid #ffa726;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      outline: none;
+    }
+    input[type="text"]:focus {
+      border-color: #fb8c00;
+    }
+    .brush-info {
+      color: #ffa726;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    #revertIcon {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    #optionsBox {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+    }
+    #optionsBox button {
+      background-color: #ffffff;
+      color: #1e1e1e;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Avatar Editor</h1>
+  <input type="file" id="imageUpload" accept="image/*">
+  <canvas id="canvas" width="500" height="500"></canvas>
+
+  <div class="controls">
+    <label for="brushSize" class="brush-info">Brush Size:</label>
+    <button id="decreaseBrush">-</button>
+    <span id="brushSizeDisplay" class="brush-info">10</span>
+    <button id="increaseBrush">+</button>
+    <button id="clearMask">Clear Mask</button>
+    <button id="revertMask" disabled>
+      <img src="revert-icon.png" id="revertIcon" alt="Revert">
+    </button>
+  </div>
+
+  <div id="optionsBox">
+    <h2>AI Suggestions</h2>
+    <button id="acceptOption">Accept</button>
+    <button id="rejectOption">Reject</button>
+  </div>
+
+  <div class="prompt-box">
+    <label for="promptInput" class="brush-info">Enter Prompt:</label>
+    <input type="text" id="promptInput" placeholder="e.g., Add blue curly hair">
+    <button id="submitEdit">Submit Edit</button>
+  </div>
+
+  <div class="session-controls">
+    <button id="saveChanges">Save Changes</button>
+    <button id="discardChanges">Discard Changes</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let image = new Image();
+    let tempImage = null; // Stores the last AI-modified image
+    let maskCanvas = document.createElement('canvas');
+    let maskCtx = maskCanvas.getContext('2d');
+    maskCanvas.width = canvas.width;
+    maskCanvas.height = canvas.height;
+
+    const revertButton = document.getElementById('revertMask');
+    const optionsBox = document.getElementById('optionsBox');
+    const saveChangesButton = document.getElementById('saveChanges');
+    const discardChangesButton = document.getElementById('discardChanges');
+
+    // Image management
+    image.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    };
+
+    const imageUpload = document.getElementById('imageUpload');
+    imageUpload.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        image.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Handle AI modification options
+    document.getElementById('submitEdit').addEventListener('click', async () => {
+      const prompt = document.getElementById('promptInput').value;
+      if (!prompt) {
+        alert('Please enter a prompt!');
+        return;
+      }
+
+      try {
+        const response = await axios.post('http://localhost:3000/edit-image', {
+          prompt,
+        });
+
+        tempImage = new Image();
+        tempImage.src = response.data.editedImage;
+        tempImage.onload = () => {
+          ctx.drawImage(tempImage, 0, 0, canvas.width, canvas.height);
+          optionsBox.style.display = 'flex';
+          revertButton.disabled = false;
+        };
+      } catch (error) {
+        console.error('Error editing image:', error);
+      }
+    });
+
+    document.getElementById('acceptOption').addEventListener('click', () => {
+      image.src = tempImage.src; // Update main image
+      tempImage = null; // Clear temporary image
+      optionsBox.style.display = 'none';
+    });
+
+    document.getElementById('rejectOption').addEventListener('click', () => {
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height); // Revert to original
+      tempImage = null;
+      optionsBox.style.display = 'none';
+    });
+
+    // Revert to previous state
+    revertButton.addEventListener('click', async () => {
+      try {
+        const response = await axios.post('http://localhost:3000/revert-image');
+        image.src = response.data.previousImage;
+        revertButton.disabled = true;
+      } catch (error) {
+        console.error('Error reverting image:', error);
+      }
+    });
+
+    // Save or discard changes
+    saveChangesButton.addEventListener('click', async () => {
+      try {
+        await axios.post('http://localhost:3000/save-image', {
+          finalImage: canvas.toDataURL(),
+        });
+        alert('Changes saved!');
+      } catch (error) {
+        console.error('Error saving changes:', error);
+      }
+    });
+
+    discardChangesButton.addEventListener('click', () => {
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      alert('Changes discarded.');
+    });
+  </script>
+</body>
+</html>
