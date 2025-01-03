@@ -122,16 +122,12 @@
     </style>
 </head>
 <body>
-<video autoplay loop muted>
-    <source src="background-video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
 
 <div class="menu">
-    <img src="icon1.png" alt="Appearance" data-section="appearance">
-    <img src="icon2.png" alt="Outfit" data-section="outfit">
-    <img src="icon3.png" alt="Expression" data-section="expression">
-    <img src="icon4.png" alt="Accessories" data-section="accessories">
+    <img src="icon-face.png" alt="Appearance" data-section="appearance">
+    <img src="icon-outfit" alt="Outfit" data-section="outfit">
+    <img src="icon-expression" alt="Expression" data-section="expression">
+    <img src="icon-accessories" alt="Accessories" data-section="accessories">
 </div>
 
 <div class="content">
@@ -185,8 +181,10 @@
         const skinColor = document.getElementById('skinColor').value;
         const hairStyle = document.getElementById('hairStyle').value;
         const hairColor = document.getElementById('hairColor').value;
-
-        const endpoint = currentAvatar ? 'modify-avatar' : 'generate-avatar';
+        
+        const apiUrl = 'https://signora-fchvhxe6dqd0gtf5.westeurope-01.azurewebsites.net/api/avatar';
+        const endpoint = currentAvatar ? 'modify' : 'generate';
+        
         const prompt = {
             skinColor,
             hairStyle,
@@ -195,7 +193,8 @@
         };
 
         try {
-            const response = await fetch(`http://localhost:3000/${endpoint}`, {
+
+            const response = await fetch(`${apiUrl}/${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(prompt),
