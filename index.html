@@ -242,7 +242,12 @@
             </form>
             <div id="response-box" class="response-box">La risposta apparirà qui...</div>
         </div>
-
+        
+ <!-- Contenitore del Gioco Unity -->
+    <div id="unity-container">
+        <canvas id="unity-canvas"></canvas>
+    </div>
+        
        <div id="playlist-container" class="playlist-container"></div>
     </main>
 
@@ -259,6 +264,16 @@
     </footer>
 
     <audio id="alarm-sound" src="alarm.wav" autoplay></audio>
+    
+    <!-- Script per caricare Unity WebGL -->
+    <script src="Build/unityloader.js"></script>
+    <script>
+        var unityInstance = UnityLoader.instantiate("unity-canvas", "Build/webglgame.json", {
+            onProgress: function (unityInstance, progress) {
+                console.log("Caricamento: " + (progress * 100) + "%");
+            }
+        });
+    </script>
 
     <script>
 
