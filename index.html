@@ -13,6 +13,28 @@
             background-size: cover;
             color: #eee;
             text-align: center;
+            overflow: hidden; /* Evita scroll inutili */
+        }
+
+        /* 🔹 Contenitore di Unity con dimensioni fisse nella pagina */
+        #unity-container {
+            position: relative;
+            width: 80%;  /* Larghezza del gioco (puoi modificarla) */
+            max-width: 800px; /* Limite massimo per evitare che diventi troppo grande */
+            height: 500px;  /* Altezza del gioco (modificabile) */
+            margin: 40px auto; /* Centra il gioco nella pagina */
+            background: rgba(0, 0, 0, 0.8); /* Sfondo per evitare problemi visivi */
+            border: 2px solid #ffffff20;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        /* 🔹 Canvas di Unity per adattarsi al contenitore */
+        #unity-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
         .glitch {
@@ -206,7 +228,7 @@
         margin-bottom: 10px;
         font-size: 1rem;
         color: #eee;
-        
+
         footer {
             margin-top: 20px;
             padding: 10px;
@@ -223,9 +245,14 @@
         footer a:hover {
             text-decoration: underline;
         }
+    }
     </style>
+
+    <!-- Script di Unity WebGL -->
+    <script src="test1.loader.js"></script>
+
 </head>
-<body>
+<body onload="startUnity()">
     <header>
         <h1>La Signora</h1>
         <p>A Fuera AI-Generated Character</p>
@@ -266,13 +293,33 @@
     <audio id="alarm-sound" src="alarm.wav" autoplay></audio>
     
     <!-- Script per caricare Unity WebGL -->
-    <script src="Build/unityloader.js"></script>
     <script>
-        var unityInstance = UnityLoader.instantiate("unity-canvas", "Build/webglgame.json", {
-            onProgress: function (unityInstance, progress) {
-                console.log("Caricamento: " + (progress * 100) + "%");
+        function startUnity() {
+            var config = {
+                dataUrl: "test1.data",
+                frameworkUrl:"test1.framework.js",
+                codeUrl: "test1.wasm",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "test1",
+                productName: "test1",
+                productVersion: "1.0",
+            };
+
+            var container = document.querySelector("#unity-container");
+            var canvas = document.querySelector("#unity-canvas");
+
+            // Controlla che createUnityInstance sia definito nel loader
+            if (typeof createUnityInstance !== "function") {
+                console.error("Errore: createUnityInstance non è definito! Assicurati che test1.loader.js sia caricato correttamente.");
+                return;
             }
-        });
+
+            createUnityInstance(canvas, config).then((instance) => {
+                window.unityInstance = instance;
+            }).catch((error) => {
+                console.error("Errore nel caricamento di Unity WebGL:", error);
+            });
+        }
     </script>
 
     <script>
